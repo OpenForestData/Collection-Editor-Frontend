@@ -50,6 +50,7 @@
     "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
     "@nrwl/angular": "^9.5.1",
+    "angular-datatables": "^9.0.2",
     "express": "^4.15.2",
     "lint-staged": "^10.2.11",
     "ngx-cookie-service": "^3.0.4",
