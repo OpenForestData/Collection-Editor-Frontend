@@ -1,4 +1,4 @@
 {
-  "api": "http://localhost:8000",
+  "api": "https://collectioneditor.whiteaster.com/api/",
   "language": "en"
 }

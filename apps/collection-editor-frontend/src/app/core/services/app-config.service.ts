@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpBackend } from '@angular/common/http';
 
 /**
  * Application Config Interface
@@ -28,28 +28,21 @@ export class AppConfigService {
   /**
    * @ignore
    */
-  constructor(private http: HttpClient) {}
+  constructor(private handler: HttpBackend) {}
 
   /**
    * Load config from file 'config.json'
    */
-  load(): Promise<void> {
+  load() {
     const jsonFile = `config.json`;
-
     /**
      * Return response of promise with config request
      */
-    return new Promise<void>((resolve, reject) => {
-      this.http
-        .get(jsonFile)
-        .toPromise()
-        .then((response: IConfig) => {
-          AppConfigService.config = response;
-          resolve();
-        })
-        .catch((response: any) => {
-          reject(`Failed to load the config file`);
-        });
-    });
+    return new HttpClient(this.handler)
+      .get(jsonFile)
+      .toPromise()
+      .then((response: IConfig) => {
+        AppConfigService.config = response;
+      });
   }
 }

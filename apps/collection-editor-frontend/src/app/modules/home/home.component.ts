@@ -6,7 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+  dtOptions: any = {};
+
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+    };
+  }
 }

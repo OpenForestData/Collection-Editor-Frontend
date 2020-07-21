@@ -1,0 +1,10 @@
+<div class="header">
+  <div class="settings-container">
+    <button class="more-options-button" (click)="showSettings()">
+      <svg-icon src="/assets/images/arrow-down.svg" [applyCss]="true"></svg-icon>
+    </button>
+  </div>
+  <div class="more-settings-view" *ngIf="isOpen">
+    <button class="logout-button" (click)="logout()">Logout</button>
+  </div>
+</div>

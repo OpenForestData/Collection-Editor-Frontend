@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="container__title">
+    <h2 class="container__title__title">Collection Editor</h2>
+  </div>
+  <div class="container__line"></div>
+  <div class="container__table">
+    <div class="container__table__add">
+      <button class="container__table__add__button" (click)="showSide()">{{ 'Add new' }}</button>
+    </div>
+    <div class="container__table__full-view">
+      <!-- <table class="container__table__full-view__inside" datatable [dtOptions]="dtOptions"></table> -->
+      <table datatable class="row-border hover">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Collection Name</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of tableData">
+            <td>{{ row.id }}</td>
+            <td>{{ row.title }}</td>
+            <td>{{ row.collection_name }}</td>
+            <td>
+              <button class="action-button">Export</button>
+              <button class="action-button">Remove</button>
+              <button class="action-button">Edit</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="side-add" *ngIf="sideVisible" [@enterAnimation]>
+    <button class="close-button" (click)="showSide()"><span>Close</span></button>
+    <collection-editor-frontend-table-new></collection-editor-frontend-table-new>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+}
+
+.card {
+  width: 50vw;
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-group {
+  label {
+    display: inline-block;
+    min-width: 80px;
+  }
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  button {
+    margin-top: 10px;
+  }
+}
