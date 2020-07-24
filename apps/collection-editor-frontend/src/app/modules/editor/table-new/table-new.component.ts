@@ -19,7 +19,6 @@ export class TableNewComponent {
     file: new FormControl(''),
     collection_name: new FormControl(''),
   });
-
   /**
    * Is open
    */
@@ -28,6 +27,10 @@ export class TableNewComponent {
    * Is open change detector
    */
   @Output() isOpenChange = new EventEmitter<boolean>();
+  /**
+   * Errors
+   */
+  errors: any = {};
 
   /**
    * New table constructor
@@ -43,9 +46,12 @@ export class TableNewComponent {
     formData.append('title', this.newTableForm.get('title').value);
     formData.append('collection_name', this.newTableForm.get('collection_name').value);
     formData.append('file', this.newTableForm.get('file').value);
-    this.editorService.createDataTable(formData).subscribe((response) => {
-      // console.log('response: ', response);
-    });
+    this.editorService.createDataTable(formData).subscribe(
+      (response) => {},
+      (error) => {
+        this.errors = error.error;
+      }
+    );
   }
 
   /**

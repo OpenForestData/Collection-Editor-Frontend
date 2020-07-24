@@ -6,8 +6,10 @@
 
     <div class="body">
       <input formControlName="title" type="text" placeholder="Enter the title you want to add" />
+      <p class="error" *ngIf="errors.title">{{ errors.title }}</p>
       <input formControlName="collection_name" type="text" placeholder="Enter the collection name you want to add" />
       <input type="file" (change)="onFileChange($event)" />
+      <p class="error" *ngIf="errors.file">{{ errors.file }}</p>
     </div>
 
     <div class="buttons">
