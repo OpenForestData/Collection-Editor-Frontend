@@ -39,4 +39,12 @@ export class EditorService {
       headers: { 'Content-Type': 'mutlipart/form-data' },
     });
   }
+
+  addNewRow(tableId: number, columnNames: any) {
+    return this.http.post<any>(`${AppConfigService.config.api}datatable/${tableId}/row/`, columnNames);
+  }
+
+  deleteRowById(tableId: number, rowId: string) {
+    return this.http.delete<any>(`${AppConfigService.config.api}datatable/${tableId}/row/${rowId}`);
+  }
 }

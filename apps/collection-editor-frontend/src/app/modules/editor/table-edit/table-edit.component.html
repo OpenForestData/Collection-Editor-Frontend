@@ -4,29 +4,32 @@
   </div>
   <div class="container__line"></div>
   <div class="container__table">
+    <div class="container__table__add">
+      <button class="container__table__add__button" (click)="addRow()">{{ 'Add row' }}</button>
+    </div>
     <div class="container__table__full-view">
-      <table datatable class="row-border hover">
-        <!-- <thead>
+      <table datatable #edit [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+        <thead>
           <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Collection Name</th>
+            <th *ngFor="let heading of headings">{{ heading }}</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let row of tableData">
-            <td>{{ row.id }}</td>
-            <td>{{ row.title }}</td>
-            <td>{{ row.collection_name }}</td>
+          <tr *ngFor="let row of dataTable">
+            <td *ngFor="let count of headings">{{ row[count] }}</td>
             <td>
-              <button class="action-button">Export</button>
-              <button class="action-button">Remove</button>
-              <button class="action-button">Edit</button>
+              <button class="action-button" (click)="deleteRow(row._id)">Remove</button>
+              <button class="action-button" (click)="editRow(row._id)">Edit</button>
             </td>
           </tr>
-        </tbody> -->
+        </tbody>
       </table>
     </div>
+  </div>
+
+  <div class="edit-fields" *ngIf="isOpen">
+    <collection-editor-frontend-row-edit [(isOpen)]="isOpen" [fields]="" [tableId]="">
+    </collection-editor-frontend-row-edit>
   </div>
 </div>

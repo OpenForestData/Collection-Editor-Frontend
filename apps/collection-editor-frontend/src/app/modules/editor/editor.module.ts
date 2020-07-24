@@ -7,9 +7,10 @@ import { TablesListComponent } from './tables-list/tables-list.component';
 import { TableNewComponent } from './table-new/table-new.component';
 import { TableEditComponent } from './table-edit/table-edit.component';
 import { SharedModule } from '@app/shared/shared.module';
+import { RowEditComponent } from './table-edit/row-edit/row-edit.component';
 
 @NgModule({
   imports: [CommonModule, EditorRoutingModule, DataTablesModule, SharedModule],
-  declarations: [EditorComponent, TablesListComponent, TableNewComponent, TableEditComponent],
+  declarations: [EditorComponent, TablesListComponent, TableNewComponent, TableEditComponent, RowEditComponent],
 })
 export class EditorModule {}

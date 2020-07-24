@@ -47,7 +47,9 @@ export class TableNewComponent {
     formData.append('collection_name', this.newTableForm.get('collection_name').value);
     formData.append('file', this.newTableForm.get('file').value);
     this.editorService.createDataTable(formData).subscribe(
-      (response) => {},
+      (response) => {
+        this.setOpen(false);
+      },
       (error) => {
         this.errors = error.error;
       }
@@ -60,8 +62,12 @@ export class TableNewComponent {
    */
   onFileChange(event: any) {
     if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      this.newTableForm.get('file').setValue(file);
+      let file = event.target.files[0];
+      if (file.name.split('.').pop() === 'csv') {
+        const blob = file.slice(0, file.size, 'text/csv');
+        file = new File([blob], file.name, { type: 'text/csv' });
+        this.newTableForm.get('file').setValue(file);
+      }
     }
   }
 
