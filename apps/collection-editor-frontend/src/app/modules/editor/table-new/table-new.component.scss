@@ -1,4 +1,42 @@
 :host {
-  width: 1000px;
+  // width: 1000px;
   background-color: white;
+  padding: 0 30px 0 30px;
+  width: 100%;
+}
+
+.header {
+  h2 {
+    padding-bottom: 3px;
+    border-bottom: 1px solid #cdd6dc;
+  }
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  input {
+    margin: 15px 0;
+    border: none;
+    border-bottom: 1px solid #eef0f6;
+    width: 80%;
+  }
+
+  input::placeholder {
+    color: #a6acbe;
+  }
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin: 90px 0 20px 0;
+  button {
+    background-color: #dde4eb;
+    border: none;
+    padding: 10px;
+    color: black;
+    border-radius: 5px;
+    cursor: pointer;
+  }
 }

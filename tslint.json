@@ -9,10 +9,11 @@
     },
     "import-blacklist": [true, "rxjs/Rx"],
     "max-line-length": [true, 120],
-    "no-unused-variable": false,
+    "no-unused-variable": true,
+    "no-string-literal": false,
     "member-access": false,
     "member-ordering": [
-      true,
+      false,
       {
         "order": [
           "public-static-field",

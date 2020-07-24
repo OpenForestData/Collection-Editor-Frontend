@@ -4,10 +4,22 @@ import { Observable } from 'rxjs';
 import { AuthenticationService } from '../services/authentication.service';
 import { AppConfigService } from '../services/app-config.service';
 
+/**
+ * Jwt interceptor
+ */
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
+  /**
+   * Jwt interceptor constructor
+   * @param authenticationService Authentication service
+   */
   constructor(private authenticationService: AuthenticationService) {}
 
+  /**
+   * Check if user is logged and set headers
+   * @param request Request
+   * @param next Next
+   */
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const currentUser = this.authenticationService.currentUserValue;
     const isLoggedIn = currentUser && currentUser.access;

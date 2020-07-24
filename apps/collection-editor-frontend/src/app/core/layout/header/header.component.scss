@@ -22,14 +22,33 @@
 }
 
 .more-settings-view {
-  width: 200px;
-  height: 200px;
   background-color: white;
-  position: relative;
-  left: 90%;
+  position: fixed;
+  right: 0;
   border-radius: 10px;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
 }
 
-.logout-button {
-  padding: 10px;
+.settings-button {
+  background-color: transparent;
+  margin: 20px;
+  border: none;
+  border-bottom: 1px solid #cdd6dc;
+}
+
+.settings-button:hover {
+  background-color: #c4c4c4;
+}
+
+.whole-window-close {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  background-color: transparent;
 }

@@ -1,21 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthenticationService } from '@app/core/services/authentication.service';
 import { Router } from '@angular/router';
 
+/**
+ * Header component
+ */
 @Component({
   selector: 'collection-editor-frontend-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   /**
    * Is open?
    */
   isOpen = false;
 
+  /**
+   * Header constructor
+   * @param authService Auth service
+   * @param router Router
+   */
   constructor(private authService: AuthenticationService, private router: Router) {}
-
-  ngOnInit() {}
 
   /**
    * Toggle more settings
@@ -30,5 +36,12 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.authService.logout();
     this.router.navigate(['/']);
+  }
+
+  /**
+   * Redirect user to main page
+   */
+  redirectToList() {
+    this.router.navigate(['list']);
   }
 }

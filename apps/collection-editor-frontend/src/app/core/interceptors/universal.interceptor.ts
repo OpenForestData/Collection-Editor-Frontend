@@ -30,8 +30,8 @@ export class UniversalInterceptor implements HttpInterceptor {
 
   /**
    * Change relative request URL to absolute
-   * @param req
-   * @param next
+   * @param req request
+   * @param next next
    * @returns Request
    */
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

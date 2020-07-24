@@ -12,6 +12,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
 import { HeaderComponent } from './core/layout/header/header.component';
+import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 
 /**
  * Initialize translate loader
@@ -49,6 +50,7 @@ export function initializeApp(appConfigService: AppConfigService) {
     AppConfigService,
     { provide: APP_INITIALIZER, useFactory: initializeApp, deps: [AppConfigService, HttpClientModule], multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })

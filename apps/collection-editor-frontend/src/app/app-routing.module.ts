@@ -4,6 +4,9 @@ import { MainLayoutComponent } from '@app/core/layout/main-layout/main-layout.co
 import { NgModule } from '@angular/core';
 import { AuthGuard } from './core/guards/auth.guard';
 
+/**
+ * App routes
+ */
 const routes: Routes = [
   {
     path: 'list',

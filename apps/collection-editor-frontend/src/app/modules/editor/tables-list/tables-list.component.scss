@@ -40,16 +40,16 @@
   float: right;
 }
 
-.side-add {
+.popup {
   position: fixed;
-  top: 100px;
-  right: 0;
   display: flex;
   align-self: flex-end;
-  width: 20vw;
-  height: 70vh;
+  width: 40vw;
   background-color: red;
-  transition: width 10s;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
 }
 
 .close-button {

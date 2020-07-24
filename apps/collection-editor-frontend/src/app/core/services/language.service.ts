@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-
 import { environment } from '@env/environment';
-
 import { AppConfigService } from './app-config.service';
 
 /**
@@ -18,6 +16,9 @@ export class LanguageService {
    */
   constructor(private cookieService: CookieService) {}
 
+  /**
+   * Get language from env
+   */
   public get language() {
     return this.cookieService.check(environment.languageCookie)
       ? this.cookieService.get(environment.languageCookie)
@@ -26,6 +27,9 @@ export class LanguageService {
       : 'en';
   }
 
+  /**
+   * Set language in cookies
+   */
   public set language(language: string) {
     this.cookieService.set(environment.languageCookie, language, environment.cookieTime, '/');
   }

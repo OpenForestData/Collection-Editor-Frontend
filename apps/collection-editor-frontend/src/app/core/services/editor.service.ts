@@ -21,4 +21,22 @@ export class EditorService {
   getDataTables() {
     return this.http.get<any>(`${AppConfigService.config.api}datatable/`);
   }
+
+  /**
+   * Create table
+   * @param table Table object
+   */
+  createDataTable(table: any) {
+    return this.http.post<any>(`${AppConfigService.config.api}datatable/`, table);
+  }
+
+  /**
+   * Get data table by id
+   * @param id Table id
+   */
+  getDataTableById(id: number) {
+    return this.http.get<any>(`${AppConfigService.config.api}datatable/${id}`, {
+      headers: { 'Content-Type': 'mutlipart/form-data' },
+    });
+  }
 }
