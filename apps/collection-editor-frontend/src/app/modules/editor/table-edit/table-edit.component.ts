@@ -36,6 +36,10 @@ export class TableEditComponent implements OnInit, OnDestroy {
    * Is open
    */
   isOpen = false;
+  /**
+   * Row details
+   */
+  rowDetails;
 
   /**
    * Table edit constructor
@@ -109,8 +113,9 @@ export class TableEditComponent implements OnInit, OnDestroy {
    * Edit table row
    * @param rowId Row id
    */
-  editRow(rowId: string) {
+  editRow(row: any) {
     this.isOpen = !this.isOpen;
+    this.rowDetails = row;
   }
 
   ngOnDestroy(): void {

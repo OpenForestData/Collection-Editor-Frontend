@@ -19,6 +19,10 @@ export class RowEditComponent implements OnInit {
    */
   @Input() isOpen: boolean;
   /**
+   * Row details
+   */
+  @Input() rowDetails;
+  /**
    * Is open change detector
    */
   @Output() isOpenChange = new EventEmitter<boolean>();

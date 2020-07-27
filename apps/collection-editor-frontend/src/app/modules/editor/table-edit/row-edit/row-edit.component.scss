@@ -1,0 +1,11 @@
+.container {
+  display: flex;
+}
+
+.body {
+  &__row {
+    label {
+      padding-right: 10px;
+    }
+  }
+}

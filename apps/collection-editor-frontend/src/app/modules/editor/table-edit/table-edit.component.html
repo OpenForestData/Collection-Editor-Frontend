@@ -20,7 +20,7 @@
             <td *ngFor="let count of headings">{{ row[count] }}</td>
             <td>
               <button class="action-button" (click)="deleteRow(row._id)">Remove</button>
-              <button class="action-button" (click)="editRow(row._id)">Edit</button>
+              <button class="action-button" (click)="editRow(row)">Edit</button>
             </td>
           </tr>
         </tbody>
@@ -29,7 +29,12 @@
   </div>
 
   <div class="edit-fields" *ngIf="isOpen">
-    <collection-editor-frontend-row-edit [(isOpen)]="isOpen" [fields]="" [tableId]="">
+    <collection-editor-frontend-row-edit
+      [(isOpen)]="isOpen"
+      [fields]="headings"
+      [rowDetails]="rowDetails"
+      [tableId]="tableId"
+    >
     </collection-editor-frontend-row-edit>
   </div>
 </div>
