@@ -1,7 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EditorService } from '@app/core/services/editor.service';
 import { Subject, throwError } from 'rxjs';
+import { DataTableDirective } from 'angular-datatables';
 
 /**
  * Table edit component
@@ -40,6 +41,11 @@ export class TableEditComponent implements OnInit, OnDestroy {
    * Row details
    */
   rowDetails;
+  /**
+   * Datatable directive
+   */
+  @ViewChild(DataTableDirective, { static: false })
+  datatableElement: DataTableDirective;
 
   /**
    * Table edit constructor
@@ -60,7 +66,7 @@ export class TableEditComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Fetch data from API
+   * Fetch data from API and set up column filtering
    * @param id id
    */
   getData(id: number) {
@@ -73,6 +79,17 @@ export class TableEditComponent implements OnInit, OnDestroy {
         pageLength: 2,
       };
       this.dtTrigger.next();
+
+      this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.columns().every(function () {
+          const that = this;
+          $('input', this.footer()).on('keyup change', function () {
+            if (that.search() !== this['value']) {
+              that.search(this['value']).draw();
+            }
+          });
+        });
+      });
     });
   }
 
@@ -118,6 +135,9 @@ export class TableEditComponent implements OnInit, OnDestroy {
     this.rowDetails = row;
   }
 
+  /**
+   * Unsubscribe to datatable trigger
+   */
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
   }

@@ -45,7 +45,7 @@ export class EditorService {
   }
 
   patchRow(tableId: number, rowId: string, rowData: any) {
-    return this.http.post<any>(`${AppConfigService.config.api}datatable/${tableId}/row/${rowId}`, rowData);
+    return this.http.patch<any>(`${AppConfigService.config.api}datatable/${tableId}/row/${rowId}/`, rowData);
   }
 
   deleteRowById(tableId: number, rowId: string) {

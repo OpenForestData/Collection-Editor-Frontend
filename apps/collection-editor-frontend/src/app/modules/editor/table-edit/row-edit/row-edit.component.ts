@@ -1,5 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { EditorService } from '@app/core/services/editor.service';
 
+/**
+ * Row edit component
+ */
 @Component({
   selector: 'collection-editor-frontend-row-edit',
   templateUrl: './row-edit.component.html',
@@ -26,10 +30,24 @@ export class RowEditComponent implements OnInit {
    * Is open change detector
    */
   @Output() isOpenChange = new EventEmitter<boolean>();
+  /**
+   * Data tables trigger detector
+   */
+  @Output() dtTriggerChange = new EventEmitter<any>();
+  /**
+   * Row data
+   */
+  row;
 
-  constructor() {}
+  /**
+   * Row edit constructor
+   * @param editorService Editor service
+   */
+  constructor(private editorService: EditorService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.row = { ...this.rowDetails };
+  }
 
   /**
    * Change status is open
@@ -40,5 +58,15 @@ export class RowEditComponent implements OnInit {
     this.isOpenChange.emit(status);
   }
 
-  // patchRow()
+  /**
+   * Update row
+   */
+  updateRow() {
+    const updatedData = { ...this.row };
+    delete updatedData['_id'];
+    this.editorService.patchRow(this.tableId, this.row._id, updatedData).subscribe((response) => {
+      this.setOpen(false);
+      this.dtTriggerChange.emit(this.tableId);
+    });
+  }
 }
