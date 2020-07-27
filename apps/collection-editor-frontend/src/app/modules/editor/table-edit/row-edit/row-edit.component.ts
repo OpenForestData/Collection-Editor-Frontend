@@ -39,4 +39,6 @@ export class RowEditComponent implements OnInit {
     this.isOpen = status;
     this.isOpenChange.emit(status);
   }
+
+  // patchRow()
 }
