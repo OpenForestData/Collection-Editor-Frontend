@@ -7,6 +7,10 @@
   &__table {
     display: flex;
     flex-direction: column;
+    &__search-add {
+      display: flex;
+      justify-content: space-between;
+    }
     &__full-view {
       background-color: white;
       height: 100%;
@@ -65,4 +69,20 @@ td.mat-cell,
 td.mat-footer-cell,
 th.mat-header-cell {
   min-width: 100px;
+  padding: 0 10px;
+}
+
+.input-filter {
+  max-width: 100px;
+  margin: 0 8px;
+  padding: 0;
+}
+
+.input-filter:first-of-type {
+  margin: 0;
+  margin-left: 24px;
+}
+
+.td-filter {
+  display: flex;
 }

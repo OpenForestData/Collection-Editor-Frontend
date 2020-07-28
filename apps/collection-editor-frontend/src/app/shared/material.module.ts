@@ -6,6 +6,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatTableModule,
     MatPaginatorModule,
     MatIconModule,
+    MatInputModule,
   ],
   exports: [
     MatFormFieldModule,
@@ -25,6 +27,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatTableModule,
     MatPaginatorModule,
     MatIconModule,
+    MatInputModule,
   ],
 })
 export class MaterialModule {}

@@ -44,11 +44,12 @@ export class TableEditComponent implements OnInit {
   /**
    * Filters for paginator
    */
-  filters: any = { offset: 0, limit: 5 };
+  filters: any = { offset: 0, limit: 5, logical_query: '' };
   /**
    * Columns to display
    */
   displayColumn;
+  isOpenExport = false;
 
   /**
    * Table edit constructor
@@ -70,11 +71,11 @@ export class TableEditComponent implements OnInit {
    */
   getData(id: number) {
     this.editorService.retrievDataById(id, this.filters).subscribe((response) => {
+      this.dataTable = new MatTableDataSource(response.results);
       this.count = response.count;
       this.headings = Object.keys(response.results[0]);
       this.headings.splice(this.headings.indexOf('_id'), 1);
       this.displayColumn = [...this.headings, 'edit', 'delete'];
-      this.dataTable = new MatTableDataSource(response.results);
     });
   }
 
@@ -121,17 +122,18 @@ export class TableEditComponent implements OnInit {
   }
 
   advancedSearch() {
-    // let logicalQuery = '?logical_query=or(species=deer, and(species=bear, color=black))';
-    const logicalQuery =
-      '?logical_query=or(Variable_code=H06, and(Industry_aggregation_NZSIOC=Level 1, Variable_code=H05))';
-    this.editorService.retrievDataById(this.tableId, logicalQuery).subscribe((response) => {
-      // this.dataTable = response.results;
+    // or(Miesiac=7, and(Dzien=n8, Plec=m)
+    this.filters['logical_query'] = decodeURI(this.filters['logical_query']);
+    this.getData(this.tableId);
+    // this.editorService.retrievDataById(this.tableId, this.filters).subscribe((response) => {
+    //   // this.dataTable = response.results;
 
-      this.dataTable = response.results;
-      this.headings = Object.keys(this.dataTable[0]);
-      this.headings.splice(this.headings.indexOf('_id'), 1);
-    });
+    //   this.dataTable = response.results;
+    //   this.headings = Object.keys(this.dataTable[0]);
+    //   this.headings.splice(this.headings.indexOf('_id'), 1);
+    // });
   }
+
   /**
    * Change pages for paginator and fetch data from API
    * @param event Event
@@ -140,5 +142,22 @@ export class TableEditComponent implements OnInit {
     this.pageSize = event.pageSize;
     this.filters = { offset: event.pageIndex * this.pageSize, limit: this.pageSize };
     this.getData(this.tableId);
+  }
+
+  /**
+   * Search in column
+   * @param columnName Name of column
+   * @param event Event for getting current value
+   */
+  searchInColumn(columnName: string, event: any) {
+    this.filters[columnName] = event.target.value;
+    this.getData(this.tableId);
+  }
+
+  /**
+   * Open window for export
+   */
+  exportWindowOpen() {
+    this.isOpenExport = !this.isOpenExport;
   }
 }
