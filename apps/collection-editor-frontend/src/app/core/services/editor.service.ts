@@ -58,6 +58,11 @@ export class EditorService {
     return this.http.delete<any>(`${AppConfigService.config.api}datatable/${tableId}/row/${rowId}`);
   }
 
+  exportTableById(tableId: number, pid: any, filters: any) {
+    const queryParams = this.getQueryParamsFromObject(filters);
+    return this.http.post<any>(`${AppConfigService.config.api}datatable/${tableId}/export/?${queryParams}`, pid);
+  }
+
   /**
    * Parse object to query param string
    * @param object Object

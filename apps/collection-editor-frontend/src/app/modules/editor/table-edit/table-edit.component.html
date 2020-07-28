@@ -4,9 +4,19 @@
   </div>
   <div class="container__line"></div>
   <div class="container__table">
-    <div class="container__table__add">
-      <button class="container__table__add__button">{{ 'Advanced search' }}</button>
-      <button class="container__table__add__button" (click)="addRow()">{{ 'Add row' }}</button>
+    <div class="container__table__search-add">
+      <div class="advanced-search">
+        <p>Example: or(species=deer, and(species=bear, color=black))</p>
+        <p>
+          Explanation: Search for all elements that species equals to deer or species equals to bear and their color is
+          black.
+        </p>
+        <input type="search" [(ngModel)]="filters.logical_query" (keyup.enter)="advancedSearch()" />
+      </div>
+      <div class="container__table__add">
+        <button class="container__table__add__button" (click)="exportWindowOpen()">{{ 'Export' }}</button>
+        <button class="container__table__add__button" (click)="addRow()">{{ 'Add row' }}</button>
+      </div>
     </div>
     <div class="container__table__full-view">
       <table mat-table [dataSource]="dataTable">
@@ -34,14 +44,23 @@
         <tr mat-header-row *matHeaderRowDef="displayColumn"></tr>
         <tr mat-row *matRowDef="let row; columns: displayColumn"></tr>
       </table>
-      <mat-paginator
-        [length]="count"
-        [pageSize]="pageSize"
-        [pageSizeOptions]="[5, 10, 25, 100]"
-        (page)="pageChanged($event)"
-      >
-      </mat-paginator>
+      <td class="td-filter">
+        <input
+          class="input-filter"
+          type="text"
+          *ngFor="let heading of headings"
+          placeholder="{{ heading }}"
+          (keyup.enter)="searchInColumn(heading, $event)"
+        />
+      </td>
     </div>
+    <mat-paginator
+      [length]="count"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      (page)="pageChanged($event)"
+    >
+    </mat-paginator>
   </div>
 
   <div class="edit-fields" *ngIf="isOpen">
@@ -50,8 +69,15 @@
       [fields]="headings"
       [rowDetails]="rowDetails"
       [tableId]="tableId"
-      (dtTriggerChange)="getData($event)"
     >
     </collection-editor-frontend-row-edit>
+  </div>
+
+  <div class="edit-fields" *ngIf="isOpenExport">
+    <collection-editor-frontend-export
+      [(isOpen)]="isOpenExport"
+      [filters]="filters"
+      [tableId]="tableId"
+    ></collection-editor-frontend-export>
   </div>
 </div>
