@@ -13,8 +13,11 @@
 .body {
   padding: 10px 0;
   &__row {
+    display: flex;
     label {
       padding-right: 10px;
+      display: inline-block;
+      min-width: 250px;
     }
   }
 }

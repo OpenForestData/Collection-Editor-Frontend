@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EditorService } from '@app/core/services/editor.service';
-import { Subject, throwError } from 'rxjs';
-import { DataTableDirective } from 'angular-datatables';
+import { throwError } from 'rxjs';
+import { MatTableDataSource } from '@angular/material/table';
 
 /**
  * Table edit component
@@ -12,7 +12,7 @@ import { DataTableDirective } from 'angular-datatables';
   templateUrl: './table-edit.component.html',
   styleUrls: ['./table-edit.component.scss'],
 })
-export class TableEditComponent implements OnInit, OnDestroy {
+export class TableEditComponent implements OnInit {
   /**
    * Table id
    */
@@ -26,14 +26,6 @@ export class TableEditComponent implements OnInit, OnDestroy {
    */
   headings = [];
   /**
-   * Data table settings
-   */
-  dtOptions: DataTables.Settings;
-  /**
-   * Data table trigger
-   */
-  dtTrigger: Subject<any> = new Subject();
-  /**
    * Is open
    */
   isOpen = false;
@@ -42,10 +34,21 @@ export class TableEditComponent implements OnInit, OnDestroy {
    */
   rowDetails;
   /**
-   * Datatable directive
+   * Number of elements for paginator
    */
-  @ViewChild(DataTableDirective, { static: false })
-  datatableElement: DataTableDirective;
+  count: number;
+  /**
+   * Page size for paginator
+   */
+  pageSize: number;
+  /**
+   * Filters for paginator
+   */
+  filters: any = { offset: 0, limit: 5 };
+  /**
+   * Columns to display
+   */
+  displayColumn;
 
   /**
    * Table edit constructor
@@ -55,10 +58,6 @@ export class TableEditComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute, private editorService: EditorService) {}
 
   ngOnInit() {
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 10,
-    };
     this.route.params.subscribe((param) => {
       this.tableId = param.id;
       this.getData(this.tableId);
@@ -70,42 +69,13 @@ export class TableEditComponent implements OnInit, OnDestroy {
    * @param id id
    */
   getData(id: number) {
-    this.editorService.getDataTableById(id).subscribe((response) => {
-      this.dataTable = response.results;
-      this.headings = Object.keys(this.dataTable[0]);
+    this.editorService.retrievDataById(id, this.filters).subscribe((response) => {
+      this.count = response.count;
+      this.headings = Object.keys(response.results[0]);
       this.headings.splice(this.headings.indexOf('_id'), 1);
-      this.dtOptions = {
-        pagingType: 'full_numbers',
-        pageLength: 2,
-      };
-      this.dtTrigger.next();
-
-      this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.columns().every(function () {
-          const that = this;
-          $('input', this.footer()).on('keyup change', function () {
-            if (that.search() !== this['value']) {
-              that.search(this['value']).draw();
-            }
-          });
-        });
-      });
+      this.displayColumn = [...this.headings, 'edit', 'delete'];
+      this.dataTable = new MatTableDataSource(response.results);
     });
-  }
-
-  /**
-   * Delete row in table
-   * @param rowId Row id
-   */
-  deleteRow(rowId: string) {
-    this.editorService.deleteRowById(this.tableId, rowId).subscribe(
-      (response) => {
-        this.getData(this.tableId);
-      },
-      (error) => {
-        throwError(error.error);
-      }
-    );
   }
 
   /**
@@ -136,9 +106,39 @@ export class TableEditComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Unsubscribe to datatable trigger
+   * Delete row in table
+   * @param rowId Row id
    */
-  ngOnDestroy(): void {
-    this.dtTrigger.unsubscribe();
+  deleteRow(rowId: string) {
+    this.editorService.deleteRowById(this.tableId, rowId).subscribe(
+      (response) => {
+        this.getData(this.tableId);
+      },
+      (error) => {
+        throwError(error.error);
+      }
+    );
+  }
+
+  advancedSearch() {
+    // let logicalQuery = '?logical_query=or(species=deer, and(species=bear, color=black))';
+    const logicalQuery =
+      '?logical_query=or(Variable_code=H06, and(Industry_aggregation_NZSIOC=Level 1, Variable_code=H05))';
+    this.editorService.retrievDataById(this.tableId, logicalQuery).subscribe((response) => {
+      // this.dataTable = response.results;
+
+      this.dataTable = response.results;
+      this.headings = Object.keys(this.dataTable[0]);
+      this.headings.splice(this.headings.indexOf('_id'), 1);
+    });
+  }
+  /**
+   * Change pages for paginator and fetch data from API
+   * @param event Event
+   */
+  pageChanged(event: any) {
+    this.pageSize = event.pageSize;
+    this.filters = { offset: event.pageIndex * this.pageSize, limit: this.pageSize };
+    this.getData(this.tableId);
   }
 }

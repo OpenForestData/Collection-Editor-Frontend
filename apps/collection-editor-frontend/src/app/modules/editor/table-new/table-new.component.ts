@@ -28,6 +28,10 @@ export class TableNewComponent {
    */
   @Output() isOpenChange = new EventEmitter<boolean>();
   /**
+   * Refresh table trigger
+   */
+  @Output() refreshTableTrigger = new EventEmitter<any>();
+  /**
    * Errors
    */
   errors: any = {};
@@ -49,6 +53,7 @@ export class TableNewComponent {
     this.editorService.createDataTable(formData).subscribe(
       (response) => {
         this.setOpen(false);
+        this.refreshTableTrigger.emit();
       },
       (error) => {
         this.errors = error.error;
@@ -66,6 +71,10 @@ export class TableNewComponent {
       if (file.name.split('.').pop() === 'csv') {
         const blob = file.slice(0, file.size, 'text/csv');
         file = new File([blob], file.name, { type: 'text/csv' });
+        this.newTableForm.get('file').setValue(file);
+      } else {
+        const blob = file.slice(0, file.size, 'application/vnd.ms-excel');
+        file = new File([blob], file.name, { type: 'application/vnd.ms-excel' });
         this.newTableForm.get('file').setValue(file);
       }
     }
