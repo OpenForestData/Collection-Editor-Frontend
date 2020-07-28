@@ -11,6 +11,8 @@
       background-color: white;
       height: 100%;
       padding: 60px;
+      overflow: auto;
+      min-height: 50vh;
     }
     &__add {
       display: flex;
@@ -22,6 +24,7 @@
         border-radius: 5px;
         border: none;
         cursor: pointer;
+        margin-left: 20px;
       }
     }
   }
@@ -35,9 +38,7 @@
 .action-button {
   border: none;
   background-color: transparent;
-  color: blue;
   cursor: pointer;
-  float: right;
 }
 
 .popup {
@@ -58,4 +59,10 @@
     display: inline-block;
     transform: rotate(-90deg);
   }
+}
+
+td.mat-cell,
+td.mat-footer-cell,
+th.mat-header-cell {
+  min-width: 100px;
 }

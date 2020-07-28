@@ -35,9 +35,7 @@
 .action-button {
   border: none;
   background-color: transparent;
-  color: blue;
   cursor: pointer;
-  float: right;
 }
 
 .popup {
@@ -58,4 +56,8 @@
     display: inline-block;
     transform: rotate(-90deg);
   }
+}
+
+table.mat-table {
+  width: 100%;
 }

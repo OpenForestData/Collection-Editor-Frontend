@@ -1,15 +1,17 @@
 <div class="container">
   <div class="header">
-    <h2>Add new table</h2>
+    <h2>Editing row</h2>
   </div>
 
   <div class="body">
-    <input type="text" placeholder="Enter the title you want to add" />
-    <input type="text" placeholder="Enter the collection name you want to add" />
+    <div class="body__row" *ngFor="let field of fields">
+      <label>{{ field }}</label>
+      <input [(ngModel)]="row[field]" />
+    </div>
   </div>
 
   <div class="buttons">
     <button type="button" (click)="setOpen(false)">Close</button>
-    <button type="submit">Submit</button>
+    <button type="submit" (click)="updateRow()">Submit</button>
   </div>
 </div>

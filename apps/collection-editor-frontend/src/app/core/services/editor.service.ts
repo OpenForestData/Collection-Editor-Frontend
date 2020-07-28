@@ -18,8 +18,9 @@ export class EditorService {
   /**
    * Fetch list of datatables from API
    */
-  getDataTables() {
-    return this.http.get<any>(`${AppConfigService.config.api}datatable/`);
+  getDataTables(filters: any) {
+    const queryParams = this.getQueryParamsFromObject(filters);
+    return this.http.get<any>(`${AppConfigService.config.api}datatable/?${queryParams}`);
   }
 
   /**
@@ -40,11 +41,40 @@ export class EditorService {
     });
   }
 
+  retrievDataById(id: number, filters: any) {
+    const queryParams = this.getQueryParamsFromObject(filters);
+    return this.http.get<any>(`${AppConfigService.config.api}datatable/${id}/?${queryParams}`);
+  }
+
   addNewRow(tableId: number, columnNames: any) {
     return this.http.post<any>(`${AppConfigService.config.api}datatable/${tableId}/row/`, columnNames);
   }
 
+  patchRow(tableId: number, rowId: string, rowData: any) {
+    return this.http.patch<any>(`${AppConfigService.config.api}datatable/${tableId}/row/${rowId}/`, rowData);
+  }
+
   deleteRowById(tableId: number, rowId: string) {
     return this.http.delete<any>(`${AppConfigService.config.api}datatable/${tableId}/row/${rowId}`);
+  }
+
+  /**
+   * Parse object to query param string
+   * @param object Object
+   * @returns Query params
+   */
+  getQueryParamsFromObject(object: any) {
+    return Object.keys(object)
+      .filter((key) => {
+        return object[key] instanceof Array ? object[key].length > 0 : object[key] !== '' && object[key] !== null;
+      })
+      .map((key) => {
+        if (object[key] instanceof Array) {
+          return encodeURIComponent(key) + '=' + encodeURIComponent(object[key].join(','));
+        } else {
+          return encodeURIComponent(key) + '=' + encodeURIComponent(object[key]);
+        }
+      })
+      .join('&');
   }
 }

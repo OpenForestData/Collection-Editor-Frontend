@@ -1,7 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EditorService } from '@app/core/services/editor.service';
-import { Subject, throwError } from 'rxjs';
+import { throwError } from 'rxjs';
+import { MatTableDataSource } from '@angular/material/table';
 
 /**
  * Table edit component
@@ -11,7 +12,7 @@ import { Subject, throwError } from 'rxjs';
   templateUrl: './table-edit.component.html',
   styleUrls: ['./table-edit.component.scss'],
 })
-export class TableEditComponent implements OnInit, OnDestroy {
+export class TableEditComponent implements OnInit {
   /**
    * Table id
    */
@@ -25,17 +26,29 @@ export class TableEditComponent implements OnInit, OnDestroy {
    */
   headings = [];
   /**
-   * Data table settings
-   */
-  dtOptions: DataTables.Settings;
-  /**
-   * Data table trigger
-   */
-  dtTrigger: Subject<any> = new Subject();
-  /**
    * Is open
    */
   isOpen = false;
+  /**
+   * Row details
+   */
+  rowDetails;
+  /**
+   * Number of elements for paginator
+   */
+  count: number;
+  /**
+   * Page size for paginator
+   */
+  pageSize: number;
+  /**
+   * Filters for paginator
+   */
+  filters: any = { offset: 0, limit: 5 };
+  /**
+   * Columns to display
+   */
+  displayColumn;
 
   /**
    * Table edit constructor
@@ -45,10 +58,6 @@ export class TableEditComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute, private editorService: EditorService) {}
 
   ngOnInit() {
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 10,
-    };
     this.route.params.subscribe((param) => {
       this.tableId = param.id;
       this.getData(this.tableId);
@@ -56,35 +65,17 @@ export class TableEditComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Fetch data from API
+   * Fetch data from API and set up column filtering
    * @param id id
    */
   getData(id: number) {
-    this.editorService.getDataTableById(id).subscribe((response) => {
-      this.dataTable = response.results;
-      this.headings = Object.keys(this.dataTable[0]);
+    this.editorService.retrievDataById(id, this.filters).subscribe((response) => {
+      this.count = response.count;
+      this.headings = Object.keys(response.results[0]);
       this.headings.splice(this.headings.indexOf('_id'), 1);
-      this.dtOptions = {
-        pagingType: 'full_numbers',
-        pageLength: 2,
-      };
-      this.dtTrigger.next();
+      this.displayColumn = [...this.headings, 'edit', 'delete'];
+      this.dataTable = new MatTableDataSource(response.results);
     });
-  }
-
-  /**
-   * Delete row in table
-   * @param rowId Row id
-   */
-  deleteRow(rowId: string) {
-    this.editorService.deleteRowById(this.tableId, rowId).subscribe(
-      (response) => {
-        this.getData(this.tableId);
-      },
-      (error) => {
-        throwError(error.error);
-      }
-    );
   }
 
   /**
@@ -109,11 +100,45 @@ export class TableEditComponent implements OnInit, OnDestroy {
    * Edit table row
    * @param rowId Row id
    */
-  editRow(rowId: string) {
+  editRow(row: any) {
     this.isOpen = !this.isOpen;
+    this.rowDetails = row;
   }
 
-  ngOnDestroy(): void {
-    this.dtTrigger.unsubscribe();
+  /**
+   * Delete row in table
+   * @param rowId Row id
+   */
+  deleteRow(rowId: string) {
+    this.editorService.deleteRowById(this.tableId, rowId).subscribe(
+      (response) => {
+        this.getData(this.tableId);
+      },
+      (error) => {
+        throwError(error.error);
+      }
+    );
+  }
+
+  advancedSearch() {
+    // let logicalQuery = '?logical_query=or(species=deer, and(species=bear, color=black))';
+    const logicalQuery =
+      '?logical_query=or(Variable_code=H06, and(Industry_aggregation_NZSIOC=Level 1, Variable_code=H05))';
+    this.editorService.retrievDataById(this.tableId, logicalQuery).subscribe((response) => {
+      // this.dataTable = response.results;
+
+      this.dataTable = response.results;
+      this.headings = Object.keys(this.dataTable[0]);
+      this.headings.splice(this.headings.indexOf('_id'), 1);
+    });
+  }
+  /**
+   * Change pages for paginator and fetch data from API
+   * @param event Event
+   */
+  pageChanged(event: any) {
+    this.pageSize = event.pageSize;
+    this.filters = { offset: event.pageIndex * this.pageSize, limit: this.pageSize };
+    this.getData(this.tableId);
   }
 }
