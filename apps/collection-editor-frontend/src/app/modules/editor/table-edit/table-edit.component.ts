@@ -130,17 +130,13 @@ export class TableEditComponent implements OnInit {
     );
   }
 
+  /**
+   * Advanced search
+   */
   advancedSearch() {
     // or(Miesiac=7, and(Dzien=n8, Plec=m)
     this.filters['logical_query'] = decodeURI(this.filters['logical_query']);
     this.getData(this.tableId);
-    // this.editorService.retrievDataById(this.tableId, this.filters).subscribe((response) => {
-    //   // this.dataTable = response.results;
-
-    //   this.dataTable = response.results;
-    //   this.headings = Object.keys(this.dataTable[0]);
-    //   this.headings.splice(this.headings.indexOf('_id'), 1);
-    // });
   }
 
   /**

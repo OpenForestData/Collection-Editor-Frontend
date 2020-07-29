@@ -49,28 +49,59 @@ export class EditorService {
     });
   }
 
+  /**
+   * Retrive data by id
+   * @param id Id
+   * @param filters Filters
+   */
   retrievDataById(id: number, filters: any) {
     const queryParams = this.getQueryParamsFromObject(filters);
     return this.http.get<any>(`${AppConfigService.config.api}datatable/${id}/?${queryParams}`);
   }
 
+  /**
+   * Add new row
+   * @param tableId Table id
+   * @param columnNames Column names
+   */
   addNewRow(tableId: number, columnNames: any) {
     return this.http.post<any>(`${AppConfigService.config.api}datatable/${tableId}/row/`, columnNames);
   }
 
+  /**
+   * Patch row with given data
+   * @param tableId Table id
+   * @param rowId Row id
+   * @param rowData Row data
+   */
   patchRow(tableId: number, rowId: string, rowData: any) {
     return this.http.patch<any>(`${AppConfigService.config.api}datatable/${tableId}/row/${rowId}/`, rowData);
   }
 
+  /**
+   * Delete row by id
+   * @param tableId Table id
+   * @param rowId Row id
+   */
   deleteRowById(tableId: number, rowId: string) {
     return this.http.delete<any>(`${AppConfigService.config.api}datatable/${tableId}/row/${rowId}`);
   }
 
+  /**
+   * Export table to dataset
+   * @param tableId Table id
+   * @param pid Dataset id
+   * @param filters Filters
+   */
   exportTableById(tableId: number, pid: any, filters: any) {
     const queryParams = this.getQueryParamsFromObject(filters);
     return this.http.post<any>(`${AppConfigService.config.api}datatable/${tableId}/export/?${queryParams}`, pid);
   }
 
+  /**
+   * Revert action on database
+   * @param actionId Id of action
+   */
   revertActionById(actionId: any) {
     return this.http.post<any>(`${AppConfigService.config.api}datatable/history/${actionId}/revert/`, {});
   }
