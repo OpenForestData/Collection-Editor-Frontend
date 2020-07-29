@@ -9,11 +9,15 @@ import { AuthGuard } from './core/guards/auth.guard';
  */
 const routes: Routes = [
   {
-    path: 'list',
+    path: '',
     component: MainLayoutComponent,
     children: [
       {
-        path: '',
+        path: 'history',
+        loadChildren: () => import('./modules/history/history.module').then((m) => m.HistoryModule),
+      },
+      {
+        path: 'list',
         loadChildren: () => import('./modules/editor/editor.module').then((m) => m.EditorModule),
       },
     ],

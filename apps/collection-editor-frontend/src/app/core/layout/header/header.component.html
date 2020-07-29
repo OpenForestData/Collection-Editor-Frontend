@@ -6,6 +6,7 @@
   </div>
   <div class="more-settings-view" *ngIf="isOpen">
     <button class="settings-button" (click)="redirectToList()">Home</button>
+    <button class="settings-button" (click)="redirectToHistory()">History</button>
     <button class="settings-button" (click)="logout()">Logout</button>
   </div>
   <div class="whole-window-close" (click)="showSettings()" *ngIf="isOpen"></div>

@@ -24,6 +24,14 @@ export class EditorService {
   }
 
   /**
+   * Fetch history of all datatables from API
+   */
+  getHistory(filters: any) {
+    const queryParams = this.getQueryParamsFromObject(filters);
+    return this.http.get<any>(`${AppConfigService.config.api}datatable/history/?${queryParams}`);
+  }
+
+  /**
    * Create table
    * @param table Table object
    */
@@ -61,6 +69,10 @@ export class EditorService {
   exportTableById(tableId: number, pid: any, filters: any) {
     const queryParams = this.getQueryParamsFromObject(filters);
     return this.http.post<any>(`${AppConfigService.config.api}datatable/${tableId}/export/?${queryParams}`, pid);
+  }
+
+  revertActionById(actionId: any) {
+    return this.http.post<any>(`${AppConfigService.config.api}datatable/history/${actionId}/revert/`, {});
   }
 
   /**

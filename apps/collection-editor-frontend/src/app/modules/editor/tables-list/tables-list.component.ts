@@ -13,14 +13,6 @@ import { Subject } from 'rxjs';
 })
 export class TablesListComponent implements OnInit {
   /**
-   * Datatables options
-   */
-  dtOptions: DataTables.Settings = {};
-  /**
-   * Data table trigger
-   */
-  dtTrigger: Subject<any> = new Subject();
-  /**
    * Data in table
    */
   tableData: Collection[] = [];
