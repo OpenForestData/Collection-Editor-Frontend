@@ -1,0 +1,63 @@
+.container {
+  background-color: #f2f2f2;
+  margin: 0 10%;
+  &__line {
+    border-bottom: 2px solid #d8d8d8;
+  }
+  &__table {
+    display: flex;
+    flex-direction: column;
+    &__full-view {
+      background-color: white;
+      height: 100%;
+      padding: 60px;
+    }
+    &__add {
+      display: flex;
+      justify-content: flex-end;
+      margin: 15px 0 35px 0;
+      &__button {
+        height: 30px;
+        background-color: #dde4eb;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+      }
+    }
+  }
+  &__title {
+    &__title {
+      margin: 30px 0 10px 0;
+    }
+  }
+}
+
+.action-button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.popup {
+  position: fixed;
+  display: flex;
+  align-self: flex-end;
+  width: 40vw;
+  background-color: red;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+}
+
+.close-button {
+  border: none;
+  span {
+    display: inline-block;
+    transform: rotate(-90deg);
+  }
+}
+
+table.mat-table {
+  width: 100%;
+}

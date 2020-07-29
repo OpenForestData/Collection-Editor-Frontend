@@ -44,4 +44,11 @@ export class HeaderComponent {
   redirectToList() {
     this.router.navigate(['list']);
   }
+
+  /**
+   * Redirect user to main page
+   */
+  redirectToHistory() {
+    this.router.navigate(['history']);
+  }
 }

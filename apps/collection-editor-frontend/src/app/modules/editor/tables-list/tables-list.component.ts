@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EditorService } from '@app/core/services/editor.service';
 import { Collection } from '@app/core/interfaces/collection';
-import { Subject } from 'rxjs';
 
 /**
  * Tables list component
@@ -12,14 +11,6 @@ import { Subject } from 'rxjs';
   styleUrls: ['./tables-list.component.scss'],
 })
 export class TablesListComponent implements OnInit {
-  /**
-   * Datatables options
-   */
-  dtOptions: DataTables.Settings = {};
-  /**
-   * Data table trigger
-   */
-  dtTrigger: Subject<any> = new Subject();
   /**
    * Data in table
    */

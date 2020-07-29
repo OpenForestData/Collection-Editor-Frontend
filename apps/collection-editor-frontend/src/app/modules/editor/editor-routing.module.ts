@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { EditorComponent } from './editor.component';
+
 import { TableEditComponent } from './table-edit/table-edit.component';
+import { TablesListComponent } from '@app/modules/editor/tables-list/tables-list.component';
 
 /**
  * Editor routes
@@ -9,7 +10,7 @@ import { TableEditComponent } from './table-edit/table-edit.component';
 const routes: Routes = [
   {
     path: '',
-    component: EditorComponent,
+    component: TablesListComponent,
   },
   {
     path: 'edit/:id',

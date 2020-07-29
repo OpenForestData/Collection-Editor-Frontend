@@ -1,0 +1,63 @@
+<div class="container">
+  <div class="container__title">
+    <h2 class="container__title__title">History</h2>
+  </div>
+  <div class="container__line"></div>
+  <div class="container__table">
+    <div class="container__table__add">
+      <!-- <button class="container__table__add__button" (click)="showSide()">{{ 'Add new' }}</button> -->
+    </div>
+    <div class="container__table__full-view">
+      <table mat-table [dataSource]="tableData">
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+          <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+        </ng-container>
+        <ng-container matColumnDef="datatable">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Datatable</th>
+          <td mat-cell *matCellDef="let row">{{ row.datatable }}</td>
+        </ng-container>
+        <ng-container matColumnDef="user">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>User</th>
+          <td mat-cell *matCellDef="let row">{{ row.user }}</td>
+        </ng-container>
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
+          <td mat-cell *matCellDef="let row">{{ row.action }}</td>
+        </ng-container>
+        <ng-container matColumnDef="created_at">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Created at</th>
+          <td mat-cell *matCellDef="let row">{{ row.created_at | date: 'dd-MM-yyyy HH:mm' }}</td>
+        </ng-container>
+        <ng-container matColumnDef="reverted">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Reverted</th>
+          <td mat-cell *matCellDef="let row">{{ row.reverted }}</td>
+        </ng-container>
+        <ng-container matColumnDef="revert">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Revert</th>
+          <td mat-cell *matCellDef="let row">
+            <button class="action-button" (click)="revertAction(row)" *ngIf="!row.reverted">
+              <mat-icon class="mat-18">edit</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayColumn"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayColumn"></tr>
+      </table>
+      <mat-paginator
+        [length]="count"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[5, 10, 25, 100]"
+        (page)="pageChanged($event)"
+      >
+      </mat-paginator>
+    </div>
+  </div>
+  <!-- <div class="popup" *ngIf="sideVisible">
+    <collection-editor-frontend-table-new
+      [(isOpen)]="sideVisible"
+      (refreshTableTrigger)="getListOfDataTables()"
+    ></collection-editor-frontend-table-new>
+  </div> -->
+</div>
