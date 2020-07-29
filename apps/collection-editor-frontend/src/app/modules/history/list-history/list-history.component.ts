@@ -10,7 +10,7 @@ export class ListHistoryComponent implements OnInit {
   /**
    * Filters for paginator
    */
-  filters: any = { offset: 0, limit: 5, ordering: 'created_at' };
+  filters: any = { offset: 0, limit: 5 };
   /**
    * Data in table
    */
