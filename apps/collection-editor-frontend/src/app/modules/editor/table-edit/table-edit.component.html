@@ -6,12 +6,18 @@
   <div class="container__table">
     <div class="container__table__search-add">
       <div class="advanced-search">
-        <p>Example: or(species=deer, and(species=bear, color=black))</p>
-        <p>
+        <p class="hint">Example: or(species=deer, and(species=bear, color=black))</p>
+        <p class="hint">
           Explanation: Search for all elements that species equals to deer or species equals to bear and their color is
           black.
         </p>
-        <input type="search" [(ngModel)]="filters.logical_query" (keyup.enter)="advancedSearch()" />
+        <input
+          class="advanced-search"
+          placeholder="Advanced search. Example above."
+          type="search"
+          [(ngModel)]="filters.logical_query"
+          (keyup.enter)="advancedSearch()"
+        />
       </div>
       <div class="container__table__add">
         <button class="container__table__add__button" (click)="exportWindowOpen()">{{ 'Export' }}</button>
@@ -50,6 +56,7 @@
           type="text"
           *ngFor="let heading of headings"
           placeholder="{{ heading }}"
+          [(ngModel)]="filters[heading]"
           (keyup.enter)="searchInColumn(heading, $event)"
         />
       </td>

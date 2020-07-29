@@ -74,15 +74,25 @@ th.mat-header-cell {
 
 .input-filter {
   max-width: 100px;
-  margin: 0 8px;
+  margin: 10px 8px;
   padding: 0;
 }
 
 .input-filter:first-of-type {
-  margin: 0;
+  margin: 10px 0;
   margin-left: 24px;
 }
 
 .td-filter {
   display: flex;
+}
+
+.advanced-search {
+  margin: 10px 0;
+  min-width: 75%;
+}
+
+.hint {
+  font-size: 12px;
+  margin: 5px 0;
 }
