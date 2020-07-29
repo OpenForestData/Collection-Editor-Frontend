@@ -49,7 +49,14 @@ export class TableEditComponent implements OnInit {
    * Columns to display
    */
   displayColumn;
+  /**
+   * Is open export window
+   */
   isOpenExport = false;
+  /**
+   * Page for paginator
+   */
+  page;
 
   /**
    * Table edit constructor
@@ -89,6 +96,8 @@ export class TableEditComponent implements OnInit {
     });
     this.editorService.addNewRow(this.tableId, temp).subscribe(
       (response) => {
+        this.page = Math.floor(this.count / this.filters['limit']);
+        this.filters['offset'] = this.page * this.filters['limit'];
         this.getData(this.tableId);
       },
       (error) => {
