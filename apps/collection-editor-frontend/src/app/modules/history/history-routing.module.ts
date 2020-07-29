@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ListHistoryComponent } from './list-history/list-history.component';
+
+import { ListHistoryComponent } from '@app/modules/history/list-history/list-history.component';
+import { HistoryComponent } from '@app/modules/history/history.component';
 
 /**
  * Editor routes
@@ -8,7 +10,13 @@ import { ListHistoryComponent } from './list-history/list-history.component';
 const routes: Routes = [
   {
     path: '',
-    component: ListHistoryComponent,
+    component: HistoryComponent,
+    children: [
+      {
+        path: '',
+        component: ListHistoryComponent,
+      },
+    ],
   },
 ];
 
