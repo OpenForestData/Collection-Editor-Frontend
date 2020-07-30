@@ -69,6 +69,7 @@ export class AuthenticationService {
       .post<any>(`${AppConfigService.config.api}token/refresh/`, { refresh: this.currentUserValue.refresh })
       .pipe(
         map((user) => {
+          this.setAccessToken(user.access);
           this.currentUserSubject.next(user);
           return user;
         })
