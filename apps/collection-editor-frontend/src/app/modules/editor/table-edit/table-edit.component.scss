@@ -69,6 +69,7 @@ td.mat-cell,
 td.mat-footer-cell,
 th.mat-header-cell {
   min-width: 100px;
+  max-width: 100px;
   padding: 0 10px;
 }
 
@@ -79,7 +80,7 @@ th.mat-header-cell {
 }
 
 .input-filter:first-of-type {
-  margin: 10px 0;
+  margin: 10px 8px;
   margin-left: 20px;
 }
 
