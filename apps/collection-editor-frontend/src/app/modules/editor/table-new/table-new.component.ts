@@ -35,6 +35,7 @@ export class TableNewComponent {
    * Errors
    */
   errors: any = {};
+  loader = false;
 
   /**
    * New table constructor
@@ -46,6 +47,7 @@ export class TableNewComponent {
    * Add new table
    */
   addNewTable() {
+    this.loader = true;
     const formData = new FormData();
     formData.append('title', this.newTableForm.get('title').value);
     formData.append('collection_name', this.newTableForm.get('collection_name').value);
@@ -54,6 +56,7 @@ export class TableNewComponent {
       (response) => {
         this.setOpen(false);
         this.refreshTableTrigger.emit();
+        this.loader = false;
       },
       (error) => {
         this.errors = error.error;

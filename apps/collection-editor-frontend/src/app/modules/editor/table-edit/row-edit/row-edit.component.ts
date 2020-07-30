@@ -31,6 +31,10 @@ export class RowEditComponent implements OnInit {
    */
   @Output() isOpenChange = new EventEmitter<boolean>();
   /**
+   * Trigger for refreshing parent
+   */
+  @Output() triggerRefresh = new EventEmitter<any>();
+  /**
    * Row data
    */
   row;
@@ -62,6 +66,7 @@ export class RowEditComponent implements OnInit {
     delete updatedData['_id'];
     this.editorService.patchRow(this.tableId, this.row._id, updatedData).subscribe((response) => {
       this.setOpen(false);
+      this.triggerRefresh.emit();
     });
   }
 }

@@ -145,7 +145,9 @@ export class TableEditComponent implements OnInit {
    */
   pageChanged(event: any) {
     this.pageSize = event.pageSize;
-    this.filters = { offset: event.pageIndex * this.pageSize, limit: this.pageSize };
+    // this.filters = { offset: event.pageIndex * this.pageSize, limit: this.pageSize };
+    this.filters['offset'] = event.pageIndex * this.pageSize;
+    this.filters['limit'] = this.pageSize;
     this.getData(this.tableId);
   }
 

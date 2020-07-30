@@ -36,6 +36,7 @@ export class HeaderComponent {
   logout() {
     this.authService.logout();
     this.router.navigate(['/auth/login']);
+    this.showSettings();
   }
 
   /**
@@ -43,6 +44,7 @@ export class HeaderComponent {
    */
   redirectToList() {
     this.router.navigate(['list']);
+    this.showSettings();
   }
 
   /**
@@ -50,5 +52,6 @@ export class HeaderComponent {
    */
   redirectToHistory() {
     this.router.navigate(['history']);
+    this.showSettings();
   }
 }
