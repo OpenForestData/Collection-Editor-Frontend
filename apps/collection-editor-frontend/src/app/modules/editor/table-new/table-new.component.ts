@@ -59,6 +59,7 @@ export class TableNewComponent {
         this.loader = false;
       },
       (error) => {
+        this.loader = false;
         this.errors = error.error;
       }
     );
