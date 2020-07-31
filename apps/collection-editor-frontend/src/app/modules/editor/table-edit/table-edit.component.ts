@@ -3,6 +3,11 @@ import { ActivatedRoute } from '@angular/router';
 import { EditorService } from '@app/core/services/editor.service';
 import { throwError } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material';
+import {
+  ConfirmDialogModel,
+  ConfirmationDialogComponent,
+} from '@app/shared/confirmation-dialog/confirmation-dialog.component';
 
 /**
  * Table edit component
@@ -57,13 +62,18 @@ export class TableEditComponent implements OnInit {
    * Page for paginator
    */
   page;
+  /**
+   * Result from confirm dialog
+   */
+  result = false;
 
   /**
    * Table edit constructor
    * @param route Route
    * @param editorService Editor service
+   * @param dialog Mat dialog
    */
-  constructor(private route: ActivatedRoute, private editorService: EditorService) {}
+  constructor(private route: ActivatedRoute, private editorService: EditorService, public dialog: MatDialog) {}
 
   ngOnInit() {
     this.route.params.subscribe((param) => {
@@ -107,6 +117,24 @@ export class TableEditComponent implements OnInit {
   }
 
   /**
+   * Confirmation delete dialog
+   * @param rowId Row id
+   */
+  confirmDeleteDialog(rowId: string): void {
+    const message = `Are you sure you want to do this?`;
+    const dialogData = new ConfirmDialogModel('Confirm Action', message);
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      maxWidth: '400px',
+      data: dialogData,
+    });
+    dialogRef.afterClosed().subscribe((dialogResult) => {
+      if (dialogResult === true) {
+        this.deleteRow(rowId);
+      }
+    });
+  }
+
+  /**
    * Edit table row
    * @param rowId Row id
    */
@@ -134,7 +162,6 @@ export class TableEditComponent implements OnInit {
    * Advanced search
    */
   advancedSearch() {
-    // or(Miesiac=7, and(Dzien=n8, Plec=m)
     this.filters['logical_query'] = decodeURI(this.filters['logical_query']);
     this.getData(this.tableId);
   }
