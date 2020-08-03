@@ -15,6 +15,10 @@ export class ExportComponent {
    */
   pid;
   /**
+   * Error message
+   */
+  errorMessage: string;
+  /**
    * Filters for export
    */
   @Input() filters;
@@ -50,8 +54,13 @@ export class ExportComponent {
    * Export table to dataset with given id
    */
   export() {
-    this.editorService.exportTableById(this.tableId, this.pid, this.filters).subscribe((response) => {
-      this.setOpen(false);
-    });
+    this.editorService.exportTableById(this.tableId, this.pid, this.filters).subscribe(
+      (response) => {
+        this.setOpen(false);
+      },
+      (error) => {
+        this.errorMessage = error.error.detail;
+      }
+    );
   }
 }

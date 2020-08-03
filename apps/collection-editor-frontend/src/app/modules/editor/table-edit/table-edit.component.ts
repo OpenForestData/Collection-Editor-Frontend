@@ -90,9 +90,7 @@ export class TableEditComponent implements OnInit {
     this.editorService.retrievDataById(id, this.filters).subscribe((response) => {
       this.dataTable = new MatTableDataSource(response.results);
       this.count = response.count;
-      this.headings = Object.keys(response.results[0]);
-      this.headings.splice(this.headings.indexOf('_id'), 1);
-      this.displayColumn = [...this.headings, 'edit', 'delete'];
+      this.displayColumn = Object.keys(response.columns);
     });
   }
 
@@ -101,7 +99,7 @@ export class TableEditComponent implements OnInit {
    */
   addRow() {
     const temp = {};
-    this.headings.forEach((heading) => {
+    this.displayColumn.forEach((heading) => {
       temp[heading] = ' ';
     });
     this.editorService.addNewRow(this.tableId, temp).subscribe(
