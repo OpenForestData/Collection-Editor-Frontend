@@ -26,7 +26,7 @@
     </div>
     <div class="container__table__full-view">
       <table mat-table [dataSource]="dataTable">
-        <ng-container matColumnDef="{{ heading }}" *ngFor="let heading of displayColumn">
+        <ng-container matColumnDef="{{ heading }}" *ngFor="let heading of initialColumns">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ heading }}</th>
           <td mat-cell *matCellDef="let row">{{ row[heading] }}</td>
         </ng-container>
@@ -74,7 +74,7 @@
   <div class="edit-fields" *ngIf="isOpen">
     <collection-editor-frontend-row-edit
       [(isOpen)]="isOpen"
-      [fields]="headings"
+      [fields]="initialColumns"
       [rowDetails]="rowDetails"
       [tableId]="tableId"
       (triggerRefresh)="getData(tableId)"

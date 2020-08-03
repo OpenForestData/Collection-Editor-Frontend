@@ -66,6 +66,10 @@ export class TableEditComponent implements OnInit {
    * Result from confirm dialog
    */
   result = false;
+  /**
+   * Initial columns
+   */
+  initialColumns;
 
   /**
    * Table edit constructor
@@ -90,7 +94,8 @@ export class TableEditComponent implements OnInit {
     this.editorService.retrievDataById(id, this.filters).subscribe((response) => {
       this.dataTable = new MatTableDataSource(response.results);
       this.count = response.count;
-      this.displayColumn = Object.keys(response.columns);
+      this.initialColumns = Object.values(response.columns);
+      this.displayColumn = [...this.initialColumns, 'edit', 'delete'];
     });
   }
 
