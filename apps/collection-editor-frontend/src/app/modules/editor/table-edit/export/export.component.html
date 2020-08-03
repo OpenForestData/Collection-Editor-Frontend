@@ -7,7 +7,8 @@
     <div class="body__row">
       <label>Dataset ID</label>
       <input [(ngModel)]="pid" />
-      <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+      <p class="error" *ngIf="errorMessage.detail">{{ errorMessage.detail }}</p>
+      <p class="error" *ngIf="errorMessage.dataset_pid">{{ errorMessage.dataset_pid }}</p>
     </div>
   </div>
 

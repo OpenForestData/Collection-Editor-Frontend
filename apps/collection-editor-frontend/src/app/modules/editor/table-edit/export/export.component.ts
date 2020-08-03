@@ -17,7 +17,7 @@ export class ExportComponent {
   /**
    * Error message
    */
-  errorMessage: string;
+  errorMessage;
   /**
    * Filters for export
    */
@@ -59,7 +59,7 @@ export class ExportComponent {
         this.setOpen(false);
       },
       (error) => {
-        this.errorMessage = error.error.detail;
+        this.errorMessage = error.error;
       }
     );
   }
