@@ -54,7 +54,7 @@
         <input
           class="input-filter"
           type="text"
-          *ngFor="let heading of headings"
+          *ngFor="let heading of initialColumns"
           placeholder="{{ heading }}"
           [(ngModel)]="filters[heading]"
           (keyup.enter)="searchInColumn(heading, $event)"
