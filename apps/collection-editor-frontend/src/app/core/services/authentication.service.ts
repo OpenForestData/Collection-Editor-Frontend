@@ -81,7 +81,15 @@ export class AuthenticationService {
    * @param accessToken Access token
    */
   setAccessToken(accessToken: string) {
-    this.cookieService.set('accessToken', accessToken, 1, '/');
+    this.cookieService.set(
+      'accessToken',
+      accessToken,
+      1,
+      '/',
+      window.location.hostname,
+      location.protocol === 'https:',
+      'None'
+    );
   }
 
   /**
@@ -89,7 +97,15 @@ export class AuthenticationService {
    * @param refreshToken Refresh token
    */
   setRefreshToken(refreshToken: string) {
-    this.cookieService.set('refreshToken', refreshToken, 1, '/');
+    this.cookieService.set(
+      'refreshToken',
+      refreshToken,
+      1,
+      '/',
+      window.location.hostname,
+      location.protocol === 'https:',
+      'None'
+    );
   }
 
   /**

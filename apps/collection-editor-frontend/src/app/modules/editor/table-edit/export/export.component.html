@@ -5,8 +5,8 @@
 
   <div class="body">
     <div class="body__row">
-      <label>Dataset ID</label>
-      <input [(ngModel)]="pid" />
+      <label>Dataset DOI</label>
+      <input [(ngModel)]="pid" placeholder="doi:10.5072/FK2/HAS4WC" />
       <p class="error" *ngIf="errorMessage.detail">{{ errorMessage.detail }}</p>
       <p class="error" *ngIf="errorMessage.dataset_pid">{{ errorMessage.dataset_pid }}</p>
     </div>
