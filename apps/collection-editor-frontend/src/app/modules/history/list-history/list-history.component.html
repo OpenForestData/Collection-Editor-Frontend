@@ -6,7 +6,7 @@
   <div class="container__table">
     <div class="container__table__add"></div>
     <div class="container__table__full-view">
-      <table mat-table [dataSource]="tableData" title="History of datatables">
+      <table mat-table [dataSource]="tableData" aria-describedby="History of datatables">
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef mat-sort-header id="id-column-history">ID</th>
           <td mat-cell *matCellDef="let row">{{ row.id }}</td>

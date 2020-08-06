@@ -8,7 +8,7 @@
       <button class="container__table__add__button" (click)="showSide()">{{ 'Add new' }}</button>
     </div>
     <div class="container__table__full-view">
-      <table mat-table [dataSource]="tableData" title="List of datatables">
+      <table mat-table [dataSource]="tableData" aria-describedby="List of datatables">
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef mat-sort-header id="id-column">ID</th>
           <td mat-cell *matCellDef="let row">{{ row.id }}</td>
