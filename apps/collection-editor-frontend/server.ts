@@ -9,7 +9,9 @@ import { AppServerModule } from './src/main.server';
 import { APP_BASE_HREF } from '@angular/common';
 import { existsSync } from 'fs';
 
-// The Express app is exported so that it can be used by serverless Functions.
+/**
+ * The Express app is exported so that it can be used by serverless Functions.
+ */
 export function app() {
   const server = express();
   const distFolder = join(process.cwd(), 'dist/collection-editor-frontend/browser');
@@ -44,6 +46,9 @@ export function app() {
   return server;
 }
 
+/**
+ * Start up the Node server
+ */
 function run() {
   const port = process.env.PORT || 4000;
 
@@ -54,11 +59,19 @@ function run() {
   });
 }
 
-// Webpack will replace 'require' with '__webpack_require__'
-// '__non_webpack_require__' is a proxy to Node 'require'
-// The below code is to ensure that the server is run only when not requiring the bundle.
+/**
+ * Webpack will replace 'require' with '__webpack_require__'
+ * '__non_webpack_require__' is a proxy to Node 'require'
+ * The below code is to ensure that the server is run only when not requiring the bundle.
+ */
 declare const __non_webpack_require__: NodeRequire;
+/**
+ * @ignore
+ */
 const mainModule = __non_webpack_require__.main;
+/**
+ * @ignore
+ */
 const moduleFilename = (mainModule && mainModule.filename) || '';
 if (moduleFilename === __filename || moduleFilename.includes('iisnode')) {
   run();

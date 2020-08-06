@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
   error = '';
 
   /**
-   *
+   * Login constructor
    * @param formBuilder Form builder
    * @param route Route
    * @param router Router
@@ -51,6 +51,9 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  /**
+   * @ignore
+   */
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],

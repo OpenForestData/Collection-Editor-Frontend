@@ -28,7 +28,7 @@ export class ErrorInterceptor implements HttpInterceptor {
   private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   /**
-   *
+   * Error inteceptor constructor
    * @param authenticationService Authentication service
    * @param http Http client
    */

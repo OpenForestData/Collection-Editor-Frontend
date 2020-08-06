@@ -79,6 +79,9 @@ export class TableEditComponent implements OnInit {
    */
   constructor(private route: ActivatedRoute, private editorService: EditorService, public dialog: MatDialog) {}
 
+  /**
+   * @ignore
+   */
   ngOnInit() {
     this.route.params.subscribe((param) => {
       this.tableId = param.id;

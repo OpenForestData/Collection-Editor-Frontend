@@ -45,6 +45,9 @@ export class RowEditComponent implements OnInit {
    */
   constructor(private editorService: EditorService) {}
 
+  /**
+   * @ignore
+   */
   ngOnInit() {
     this.row = { ...this.rowDetails };
   }

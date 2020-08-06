@@ -35,6 +35,9 @@ export class TableNewComponent {
    * Errors
    */
   errors: any = {};
+  /**
+   * Loader status
+   */
   loader = false;
 
   /**

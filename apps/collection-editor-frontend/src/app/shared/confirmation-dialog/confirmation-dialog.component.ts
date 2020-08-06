@@ -52,7 +52,7 @@ export class ConfirmationDialogComponent {
  */
 export class ConfirmDialogModel {
   /**
-   *
+   * Confirmation dialog model
    * @param title Title
    * @param message Message
    */

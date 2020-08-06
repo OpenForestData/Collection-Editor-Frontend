@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { EditorService } from '@app/core/services/editor.service';
 
+/**
+ * List history component
+ */
 @Component({
   selector: 'collection-editor-frontend-list-history',
   templateUrl: './list-history.component.html',
@@ -34,6 +37,9 @@ export class ListHistoryComponent implements OnInit {
    */
   constructor(private editorService: EditorService) {}
 
+  /**
+   * @ignore
+   */
   ngOnInit() {
     this.getHistoryOfDatatables();
   }

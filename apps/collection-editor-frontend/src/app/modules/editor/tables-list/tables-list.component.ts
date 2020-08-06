@@ -42,6 +42,9 @@ export class TablesListComponent implements OnInit {
    */
   constructor(private editorService: EditorService) {}
 
+  /**
+   * @ignore
+   */
   ngOnInit() {
     this.getListOfDataTables();
   }
