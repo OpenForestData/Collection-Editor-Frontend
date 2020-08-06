@@ -1,0 +1,39 @@
+.container {
+  position: fixed;
+  top: 25vh;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  background-color: #f2f2f2;
+  overflow: auto;
+  max-height: 50vh;
+  padding: 20px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.body {
+  padding: 10px 0;
+  &__row {
+    label {
+      padding-right: 10px;
+      display: inline-block;
+    }
+  }
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  button {
+    height: 30px;
+    background-color: #dde4eb;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+  }
+}
+
+.error {
+  color: red;
+}

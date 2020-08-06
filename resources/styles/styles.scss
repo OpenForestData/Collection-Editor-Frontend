@@ -1,0 +1,18 @@
+@import './config.scss';
+
+body {
+  margin: 0;
+  padding: 0;
+  color: $font-color;
+  background-color: #f2f2f2;
+  height: 100%;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+:focus {
+  outline: 0;
+}
+
+html {
+  height: 100%;
+}

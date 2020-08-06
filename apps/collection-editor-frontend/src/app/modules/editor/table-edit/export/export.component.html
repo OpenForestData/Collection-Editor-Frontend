@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="header">
+    <h2>Export data to dataset</h2>
+  </div>
+
+  <div class="body">
+    <div class="body__row">
+      <label>Dataset DOI</label>
+      <input [(ngModel)]="pid" placeholder="doi:10.5072/FK2/HAS4WC" />
+      <p class="error" *ngIf="errorMessage.detail">{{ errorMessage.detail }}</p>
+      <p class="error" *ngIf="errorMessage.dataset_pid">{{ errorMessage.dataset_pid }}</p>
+    </div>
+  </div>
+
+  <div class="buttons">
+    <button type="button" (click)="setOpen(false)">Close</button>
+    <button type="submit" (click)="export()">Submit</button>
+  </div>
+</div>

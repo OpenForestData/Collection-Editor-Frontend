@@ -1,0 +1,11 @@
+{
+  "theme": "gitbook",
+  "name": "Collection Editor Frontend",
+  "tsconfig": "apps/collection-editor-frontend/tsconfig.docs.json",
+  "toggleMenuItems": ["all"],
+  "disableSourceCode": false,
+  "disableDomTree": true,
+  "disableGraph": true,
+  "disableTemplateTab": false,
+  "hideGenerator": true
+}

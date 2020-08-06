@@ -1,0 +1,92 @@
+<div class="container">
+  <div class="container__title">
+    <h2 class="container__title__title">Editing table of ID: {{ tableId }}</h2>
+  </div>
+  <div class="container__line"></div>
+  <div class="container__table">
+    <div class="container__table__search-add">
+      <div class="advanced-search">
+        <p class="hint">Example: or(species=deer, and(species=bear, color=black))</p>
+        <p class="hint">
+          Explanation: Search for all elements that species equals to deer or species equals to bear and their color is
+          black.
+        </p>
+        <input
+          class="advanced-search"
+          placeholder="Advanced search. Example above."
+          type="search"
+          [(ngModel)]="filters.logical_query"
+          (keyup.enter)="advancedSearch()"
+        />
+      </div>
+      <div class="container__table__add">
+        <button class="container__table__add__button" (click)="exportWindowOpen()">{{ 'Export' }}</button>
+        <button class="container__table__add__button" (click)="addRow()">{{ 'Add row' }}</button>
+      </div>
+    </div>
+    <div class="container__table__full-view">
+      <table mat-table [dataSource]="dataTable">
+        <ng-container matColumnDef="{{ heading }}" *ngFor="let heading of initialColumns">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ heading }}</th>
+          <td mat-cell *matCellDef="let row">{{ row[heading] }}</td>
+        </ng-container>
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Edit</th>
+          <td mat-cell *matCellDef="let row">
+            <button mat-icon-button color="accent" class="action-button" (click)="editRow(row)">
+              <mat-icon class="mat-18">edit</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef>Delete</th>
+          <td mat-cell *matCellDef="let row">
+            <button mat-icon-button color="warn" class="action-button" (click)="confirmDeleteDialog(row._id)">
+              <mat-icon class="mat-18">delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayColumn"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayColumn"></tr>
+      </table>
+      <td class="td-filter">
+        <input
+          class="input-filter"
+          type="text"
+          *ngFor="let heading of initialColumns"
+          placeholder="{{ heading }}"
+          [(ngModel)]="filters[heading]"
+          (keyup.enter)="searchInColumn(heading, $event)"
+        />
+      </td>
+    </div>
+    <mat-paginator
+      [length]="count"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      (page)="pageChanged($event)"
+      [pageIndex]="page"
+    >
+    </mat-paginator>
+  </div>
+
+  <div class="edit-fields" *ngIf="isOpen">
+    <collection-editor-frontend-row-edit
+      [(isOpen)]="isOpen"
+      [fields]="initialColumns"
+      [rowDetails]="rowDetails"
+      [tableId]="tableId"
+      (triggerRefresh)="getData(tableId)"
+    >
+    </collection-editor-frontend-row-edit>
+  </div>
+
+  <div class="edit-fields" *ngIf="isOpenExport">
+    <collection-editor-frontend-export
+      [(isOpen)]="isOpenExport"
+      [filters]="filters"
+      [tableId]="tableId"
+    ></collection-editor-frontend-export>
+  </div>
+</div>
