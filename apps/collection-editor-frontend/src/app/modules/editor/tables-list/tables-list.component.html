@@ -8,21 +8,21 @@
       <button class="container__table__add__button" (click)="showSide()">{{ 'Add new' }}</button>
     </div>
     <div class="container__table__full-view">
-      <table mat-table [dataSource]="tableData">
+      <table mat-table [dataSource]="tableData" title="List of datatables">
         <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header id="id-column">ID</th>
           <td mat-cell *matCellDef="let row">{{ row.id }}</td>
         </ng-container>
         <ng-container matColumnDef="title">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header id="title-column">Title</th>
           <td mat-cell *matCellDef="let row">{{ row.title }}</td>
         </ng-container>
         <ng-container matColumnDef="collection name">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Collection Name</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header id="collection-name-column">Collection Name</th>
           <td mat-cell *matCellDef="let row">{{ row.collection_name }}</td>
         </ng-container>
         <ng-container matColumnDef="edit">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Edit</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header id="edit-column">Edit</th>
           <td mat-cell *matCellDef="let row">
             <button class="action-button" routerLink="/list/edit/{{ row.id }}">
               <mat-icon class="mat-18">edit</mat-icon>

@@ -25,13 +25,13 @@
       </div>
     </div>
     <div class="container__table__full-view">
-      <table mat-table [dataSource]="dataTable">
+      <table mat-table [dataSource]="dataTable" title="Edit table">
         <ng-container matColumnDef="{{ heading }}" *ngFor="let heading of initialColumns">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ heading }}</th>
           <td mat-cell *matCellDef="let row">{{ row[heading] }}</td>
         </ng-container>
         <ng-container matColumnDef="edit">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Edit</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header id="edit">Edit</th>
           <td mat-cell *matCellDef="let row">
             <button mat-icon-button color="accent" class="action-button" (click)="editRow(row)">
               <mat-icon class="mat-18">edit</mat-icon>
@@ -40,7 +40,7 @@
         </ng-container>
 
         <ng-container matColumnDef="delete">
-          <th mat-header-cell *matHeaderCellDef>Delete</th>
+          <th mat-header-cell *matHeaderCellDef id="delete">Delete</th>
           <td mat-cell *matCellDef="let row">
             <button mat-icon-button color="warn" class="action-button" (click)="confirmDeleteDialog(row._id)">
               <mat-icon class="mat-18">delete</mat-icon>
