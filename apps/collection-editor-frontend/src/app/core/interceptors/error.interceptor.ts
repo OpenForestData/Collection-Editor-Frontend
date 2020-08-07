@@ -91,7 +91,7 @@ export class ErrorInterceptor implements HttpInterceptor {
    * Refresh token
    */
   refreshToken(): Observable<any> {
-    const headers = new HttpHeaders({ 'X-RefreshToken': this.authenticationService.currentUserValue });
+    const headers = new HttpHeaders({ 'X-RefreshToken': this.authenticationService.getRefreshToken() });
     return this.http
       .post<any>(
         `${AppConfigService.config.api}token/refresh/`,
