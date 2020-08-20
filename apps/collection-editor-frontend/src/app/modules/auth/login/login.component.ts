@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService
   ) {
-    if (this.authenticationService.currentUserValue) {
+    if (this.authenticationService.getAccessToken() !== '') {
       this.router.navigate(['/list']);
     }
   }
