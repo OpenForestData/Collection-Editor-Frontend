@@ -1,4 +1,4 @@
-# Project Title
+# Collection Editor
 
 Collection Editor is a tool for a editing datatables files like xls and csv which you can upload to dataverse by built-in tool.
 
