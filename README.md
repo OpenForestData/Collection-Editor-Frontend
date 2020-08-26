@@ -18,8 +18,8 @@ After downloading repository run a command `npm install` in repository catalog t
 
 ### Application environment variables
 
-API - API adress to communicate with backend
-Language - Language of application
+- `api` - API adress to communicate with backend
+- `language` - Language of application
 
 ### Application installation (local)
 
