@@ -24,7 +24,7 @@ After downloading repository run a command `npm install` in repository catalog t
 ### Application installation (local)
 
 `npm install` to install all required dependencies then
-`npm start` to run server
+`npm start` to run server  
 Server runs on http://localhost:4200
 
 ## Application tests
