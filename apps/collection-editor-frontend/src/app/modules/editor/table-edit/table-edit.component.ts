@@ -91,6 +91,13 @@ export class TableEditComponent implements OnInit {
   }
 
   /**
+   * Prints window
+   */
+  printWindow() {
+    window.print();
+  }
+
+  /**
    * Copy current data to clipboard
    */
   copyData() {

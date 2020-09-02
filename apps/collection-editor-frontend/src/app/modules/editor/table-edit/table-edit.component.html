@@ -70,6 +70,7 @@
       <button mat-raised-button (click)="exporter.exportTable('csv')">CSV</button>
       <button mat-raised-button (click)="convertToPDF()">PDF</button>
       <button mat-raised-button ngxClipboard [cbContent]="copyData()">Copy to clipboard</button>
+      <button mat-raised-button (click)="printWindow()">Print page</button>
     </div>
     <mat-paginator
       [length]="count"
