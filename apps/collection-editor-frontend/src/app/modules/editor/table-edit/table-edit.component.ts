@@ -8,6 +8,7 @@ import {
   ConfirmDialogModel,
   ConfirmationDialogComponent,
 } from '@app/shared/confirmation-dialog/confirmation-dialog.component';
+import { jsPDF } from 'jspdf';
 
 /**
  * Table edit component
@@ -87,6 +88,59 @@ export class TableEditComponent implements OnInit {
       this.tableId = param.id;
       this.getData(this.tableId);
     });
+  }
+
+  /**
+   * Prints window
+   */
+  printWindow() {
+    window.print();
+  }
+
+  /**
+   * Copy current data to clipboard
+   */
+  copyData() {
+    return JSON.stringify(this.dataTable.data);
+  }
+
+  /**
+   * Convert datatable to PDF
+   */
+  convertToPDF() {
+    let data: any = {};
+    this.editorService.getAllRowsFromDataTableById(this.tableId).subscribe((response: any) => {
+      const result = [];
+      data = response;
+      for (let i = 0; i < data.count; i += 1) {
+        delete data.results[i]._id;
+        result.push(Object.assign({}, data.results[i]));
+      }
+      const headers = this.createHeaders(this.initialColumns);
+      const doc = new jsPDF();
+      doc.table(1, 1, result, headers, { autoSize: true });
+      doc.save();
+    });
+  }
+
+  /**
+   * Create headers based on given keys
+   * @param keys Keys
+   * @returns list of headers for table
+   */
+  createHeaders(keys: any) {
+    const result = [];
+    for (const key of keys) {
+      result.push({
+        id: key,
+        name: key,
+        prompt: key,
+        width: 65,
+        align: 'center',
+        padding: 0,
+      });
+    }
+    return result;
   }
 
   /**

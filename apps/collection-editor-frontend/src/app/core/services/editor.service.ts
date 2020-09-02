@@ -15,6 +15,10 @@ export class EditorService {
    */
   constructor(private http: HttpClient) {}
 
+  getAllRowsFromDataTableById(id: number) {
+    return this.http.get<any>(`${AppConfigService.config.api}datatable/${id}/?offset=0&limit=100000`);
+  }
+
   /**
    * Fetch list of datatables from API
    */
