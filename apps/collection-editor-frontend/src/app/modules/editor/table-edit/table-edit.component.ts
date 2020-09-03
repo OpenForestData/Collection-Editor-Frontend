@@ -109,7 +109,7 @@ export class TableEditComponent implements OnInit {
    */
   convertToPDF() {
     let data: any = {};
-    this.editorService.getAllRowsFromDataTableById(this.tableId).subscribe((response: any) => {
+    this.editorService.getAllRowsFromDataTableById(this.tableId, this.filters).subscribe((response: any) => {
       const result = [];
       data = response;
       for (let i = 0; i < data.count; i += 1) {

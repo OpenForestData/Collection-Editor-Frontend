@@ -70,16 +70,11 @@
           (keyup.enter)="searchInColumn(heading, $event)"
         />
       </td>
-      <!-- 
-      <button mat-raised-button (click)="exporter.exportTable('csv')">CSV</button>
-      <button mat-raised-button (click)="convertToPDF()">PDF</button>
-      <button mat-raised-button ngxClipboard [cbContent]="copyData()">Copy to clipboard</button>
-      <button mat-raised-button (click)="printWindow()">Print page</button> -->
     </div>
     <mat-paginator
       [length]="count"
       [pageSize]="pageSize"
-      [pageSizeOptions]="[5, 10, 25, 100]"
+      [pageSizeOptions]="[5, 10, 25, 100, 1000, 10000]"
       (page)="pageChanged($event)"
       [pageIndex]="page"
     >
