@@ -71,6 +71,9 @@ export class TableEditComponent implements OnInit {
    * Initial columns
    */
   initialColumns;
+  /**
+   * Columns that should be hidden for export
+   */
   hiddenColumns = [];
 
   /**
