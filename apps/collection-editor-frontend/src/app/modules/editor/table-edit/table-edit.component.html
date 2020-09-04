@@ -35,6 +35,7 @@
         [dataSource]="dataTable"
         aria-describedby="Edit table"
         #exporter="matTableExporter"
+        [hiddenColumns]="hiddenColumns"
       >
         <ng-container matColumnDef="{{ heading }}" *ngFor="let heading of initialColumns">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ heading }}</th>

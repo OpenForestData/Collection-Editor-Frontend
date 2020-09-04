@@ -71,6 +71,10 @@ export class TableEditComponent implements OnInit {
    * Initial columns
    */
   initialColumns;
+  /**
+   * Columns that should be hidden for export
+   */
+  hiddenColumns = [];
 
   /**
    * Table edit constructor
@@ -88,6 +92,15 @@ export class TableEditComponent implements OnInit {
       this.tableId = param.id;
       this.getData(this.tableId);
     });
+  }
+
+  /**
+   * Hide columns for export
+   * @param initialColumns All column names
+   */
+  hideColumns(initialColumns: any) {
+    this.hiddenColumns.push(initialColumns.length - 2);
+    this.hiddenColumns.push(initialColumns.length - 1);
   }
 
   /**
@@ -154,6 +167,7 @@ export class TableEditComponent implements OnInit {
       this.count = response.count;
       this.initialColumns = Object.values(response.columns);
       this.displayColumn = [...this.initialColumns, 'edit', 'delete'];
+      this.hideColumns(this.displayColumn);
     });
   }
 
