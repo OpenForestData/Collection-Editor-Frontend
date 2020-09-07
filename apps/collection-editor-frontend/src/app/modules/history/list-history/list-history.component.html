@@ -34,7 +34,7 @@
         <ng-container matColumnDef="revert">
           <th mat-header-cell *matHeaderCellDef mat-sort-header id="revert-column-history">Revert</th>
           <td mat-cell *matCellDef="let row">
-            <button class="action-button" (click)="revertAction(row)" *ngIf="!row.reverted">
+            <button class="action-button" (click)="revertAction(row)" *ngIf="!row.reverted && role === 'ReadWrite'">
               <mat-icon class="mat-18">edit</mat-icon>
             </button>
           </td>

@@ -113,6 +113,15 @@ export class AuthenticationService {
   }
 
   /**
+   * Get current role of an users
+   *
+   * @returns Information of an user
+   */
+  getCurrentRole() {
+    return this.http.get<any>(`${AppConfigService.config.api}user/me`);
+  }
+
+  /**
    * Clear cookies
    */
   clearCookies() {
