@@ -63,12 +63,7 @@ export class TablesListComponent implements OnInit {
       this.count = response.count;
     });
     this.authService.getCurrentRole().subscribe((response: any) => {
-      this.role = 'ReadOnly';
-      response?.groups.forEach((role) => {
-        if (role === 'ReadWrite') {
-          this.role = 'ReadWrite';
-        }
-      });
+      this.role = response?.groups.filter((role) => role === 'ReadWrite').length > 0 ? 'ReadWrite' : 'ReadOnly';
     });
   }
 
