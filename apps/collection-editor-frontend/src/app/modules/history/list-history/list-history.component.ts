@@ -58,11 +58,10 @@ export class ListHistoryComponent implements OnInit {
       this.count = response.count;
     });
     this.authService.getCurrentRole().subscribe((response: any) => {
-      response.groups?.forEach((role) => {
-        if (role === 'ReadOnly' && this.role !== 'ReadWrite') {
-          this.role = role;
-        } else {
-          this.role = role;
+      this.role = 'ReadOnly';
+      response?.groups.forEach((role) => {
+        if (role === 'ReadWrite') {
+          this.role = 'ReadWrite';
         }
       });
     });
