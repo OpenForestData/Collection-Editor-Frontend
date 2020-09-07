@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EditorService } from '@app/core/services/editor.service';
+import { AuthenticationService } from '@app/core/services/authentication.service';
 
 /**
  * List history component
@@ -30,12 +31,16 @@ export class ListHistoryComponent implements OnInit {
    * Columns to display
    */
   displayColumn = ['id', 'datatable', 'user', 'action', 'created_at', 'reverted', 'revert'];
+  /**
+   * Role of current user
+   */
+  role;
 
   /**
    * History constructor
    * @param editorService Editor service
    */
-  constructor(private editorService: EditorService) {}
+  constructor(private editorService: EditorService, private authService: AuthenticationService) {}
 
   /**
    * @ignore
@@ -51,6 +56,9 @@ export class ListHistoryComponent implements OnInit {
     this.editorService.getHistory(this.filters).subscribe((response) => {
       this.tableData = response.results;
       this.count = response.count;
+    });
+    this.authService.getCurrentRole().subscribe((response: any) => {
+      this.role = response?.groups.filter((role) => role === 'ReadWrite').length > 0 ? 'ReadWrite' : 'ReadOnly';
     });
   }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EditorService } from '@app/core/services/editor.service';
 import { Collection } from '@app/core/interfaces/collection';
+import { AuthenticationService } from '@app/core/services/authentication.service';
 
 /**
  * Tables list component
@@ -35,12 +36,16 @@ export class TablesListComponent implements OnInit {
    * Filters for paginator
    */
   filters: any = { offset: 0, limit: 5 };
+  /**
+   * Role of current user
+   */
+  role;
 
   /**
    * Tables list constructor
    * @param editorService Editor service
    */
-  constructor(private editorService: EditorService) {}
+  constructor(private editorService: EditorService, private authService: AuthenticationService) {}
 
   /**
    * @ignore
@@ -56,6 +61,9 @@ export class TablesListComponent implements OnInit {
     this.editorService.getDataTables(this.filters).subscribe((response) => {
       this.tableData = response.results;
       this.count = response.count;
+    });
+    this.authService.getCurrentRole().subscribe((response: any) => {
+      this.role = response?.groups.filter((role) => role === 'ReadWrite').length > 0 ? 'ReadWrite' : 'ReadOnly';
     });
   }
 
