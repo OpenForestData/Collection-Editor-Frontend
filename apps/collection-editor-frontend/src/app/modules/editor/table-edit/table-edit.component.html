@@ -25,7 +25,7 @@
         <button mat-raised-button ngxClipboard [cbContent]="copyData()">Copy to clipboard</button>
         <button mat-raised-button (click)="printWindow()">Print page</button>
         <button mat-raised-button (click)="exportWindowOpen()">Export</button>
-        <button mat-raised-button (click)="addRow()">Add row</button>
+        <button mat-raised-button (click)="addRow()" *ngIf="role === 'ReadWrite'">Add row</button>
       </div>
     </div>
     <div class="container__table__full-view">
