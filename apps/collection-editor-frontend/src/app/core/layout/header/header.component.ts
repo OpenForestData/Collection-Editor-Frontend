@@ -31,6 +31,9 @@ export class HeaderComponent implements OnInit {
     this.getUsername();
   }
 
+  /**
+   * Get username of current user
+   */
   getUsername() {
     this.authService.getCurrentRole().subscribe((res: any) => {
       this.username = res.username;
