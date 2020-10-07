@@ -9,6 +9,7 @@ import {
   ConfirmationDialogComponent,
 } from '@app/shared/confirmation-dialog/confirmation-dialog.component';
 import { jsPDF } from 'jspdf';
+import { AuthenticationService } from '@app/core/services/authentication.service';
 
 /**
  * Table edit component
@@ -75,14 +76,24 @@ export class TableEditComponent implements OnInit {
    * Columns that should be hidden for export
    */
   hiddenColumns = [];
+  /**
+   * Current role of user
+   */
+  role;
 
   /**
    * Table edit constructor
    * @param route Route
    * @param editorService Editor service
    * @param dialog Mat dialog
+   * @param authService Authentication service
    */
-  constructor(private route: ActivatedRoute, private editorService: EditorService, public dialog: MatDialog) {}
+  constructor(
+    public dialog: MatDialog,
+    private route: ActivatedRoute,
+    private editorService: EditorService,
+    private authService: AuthenticationService
+  ) {}
 
   /**
    * @ignore
@@ -91,6 +102,15 @@ export class TableEditComponent implements OnInit {
     this.route.params.subscribe((param) => {
       this.tableId = param.id;
       this.getData(this.tableId);
+    });
+  }
+
+  /**
+   * Get roles of user
+   */
+  getRoles() {
+    this.authService.getCurrentRole().subscribe((response: any) => {
+      this.role = response?.groups.filter((role) => role === 'ReadWrite').length > 0 ? 'ReadWrite' : 'ReadOnly';
     });
   }
 
