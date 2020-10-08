@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '@app/core/services/authentication.service';
 import { Router } from '@angular/router';
 
@@ -10,11 +10,15 @@ import { Router } from '@angular/router';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   /**
    * Is open?
    */
   isOpen = false;
+  /**
+   * Username
+   */
+  username = '';
 
   /**
    * Header constructor
@@ -22,6 +26,19 @@ export class HeaderComponent {
    * @param router Router
    */
   constructor(private authService: AuthenticationService, private router: Router) {}
+
+  ngOnInit() {
+    this.getUsername();
+  }
+
+  /**
+   * Get username of current user
+   */
+  getUsername() {
+    this.authService.getCurrentRole().subscribe((res: any) => {
+      this.username = res.username;
+    });
+  }
 
   /**
    * Toggle more settings

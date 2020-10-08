@@ -24,7 +24,7 @@
         <ng-container matColumnDef="edit">
           <th mat-header-cell *matHeaderCellDef mat-sort-header id="edit-column">Edit</th>
           <td mat-cell *matCellDef="let row">
-            <button class="action-button" routerLink="/list/edit/{{ row.id }}" *ngIf="role === 'ReadWrite'">
+            <button class="action-button" routerLink="/list/edit/{{ row.id }}">
               <mat-icon class="mat-18">edit</mat-icon>
             </button>
           </td>
